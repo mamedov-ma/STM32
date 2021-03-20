@@ -93090,7 +93090,7 @@
     "display": "void delay_10ms(void)",
     "location": {
       "column": "36",
-      "line": "104",
+      "line": "109",
       "path": "C:\\Users\\User\\OneDrive\\\u0420\u0430\u0431\u043e\u0447\u0438\u0439 \u0441\u0442\u043e\u043b\\summer1\\stm32\\stm-test\\STM32\\gpio\\main.c"
     },
     "name": "delay_10ms",
@@ -93098,13 +93098,13 @@
     "scope": null
   },
   {
-    "ID": "c:main.c@3289@F@delay_10ms@i",
+    "ID": "c:main.c@3535@F@delay_10ms@i",
     "What": "Variable",
     "defdec": "Def",
     "display": "i",
     "location": {
-      "column": "10",
-      "line": "115",
+      "column": "14",
+      "line": "119",
       "path": "C:\\Users\\User\\OneDrive\\\u0420\u0430\u0431\u043e\u0447\u0438\u0439 \u0441\u0442\u043e\u043b\\summer1\\stm32\\stm-test\\STM32\\gpio\\main.c"
     },
     "name": "i",
@@ -93118,7 +93118,7 @@
     "display": "void dyn_display(uint16_t, int)",
     "location": {
       "column": "6",
-      "line": "121",
+      "line": "123",
       "path": "C:\\Users\\User\\OneDrive\\\u0420\u0430\u0431\u043e\u0447\u0438\u0439 \u0441\u0442\u043e\u043b\\summer1\\stm32\\stm-test\\STM32\\gpio\\main.c"
     },
     "name": "dyn_display",
@@ -93126,13 +93126,13 @@
     "scope": null
   },
   {
-    "ID": "c:main.c@3385@F@dyn_display@mask",
+    "ID": "c:main.c@3629@F@dyn_display@mask",
     "What": "Variable",
     "defdec": "Def",
     "display": "mask",
     "location": {
-      "column": "17",
-      "line": "125",
+      "column": "21",
+      "line": "126",
       "path": "C:\\Users\\User\\OneDrive\\\u0420\u0430\u0431\u043e\u0447\u0438\u0439 \u0441\u0442\u043e\u043b\\summer1\\stm32\\stm-test\\STM32\\gpio\\main.c"
     },
     "name": "mask",
@@ -93140,13 +93140,13 @@
     "scope": null
   },
   {
-    "ID": "c:main.c@3612@F@dyn_display@decoder",
+    "ID": "c:main.c@3868@F@dyn_display@decoder",
     "What": "Variable",
     "defdec": "Def",
     "display": "decoder",
     "location": {
-      "column": "10",
-      "line": "130",
+      "column": "14",
+      "line": "131",
       "path": "C:\\Users\\User\\OneDrive\\\u0420\u0430\u0431\u043e\u0447\u0438\u0439 \u0441\u0442\u043e\u043b\\summer1\\stm32\\stm-test\\STM32\\gpio\\main.c"
     },
     "name": "decoder",
@@ -93154,13 +93154,13 @@
     "scope": null
   },
   {
-    "ID": "c:main.c@5151@F@dyn_display@out",
+    "ID": "c:main.c@5535@F@dyn_display@out",
     "What": "Variable",
     "defdec": "Def",
     "display": "out",
     "location": {
-      "column": "10",
-      "line": "183",
+      "column": "14",
+      "line": "184",
       "path": "C:\\Users\\User\\OneDrive\\\u0420\u0430\u0431\u043e\u0447\u0438\u0439 \u0441\u0442\u043e\u043b\\summer1\\stm32\\stm-test\\STM32\\gpio\\main.c"
     },
     "name": "out",
@@ -93168,13 +93168,13 @@
     "scope": null
   },
   {
-    "ID": "c:main.c@5890@F@dyn_display@port_state",
+    "ID": "c:main.c@6446@F@dyn_display@port_state",
     "What": "Variable",
     "defdec": "Def",
     "display": "port_state",
     "location": {
-      "column": "10",
-      "line": "222",
+      "column": "14",
+      "line": "223",
       "path": "C:\\Users\\User\\OneDrive\\\u0420\u0430\u0431\u043e\u0447\u0438\u0439 \u0441\u0442\u043e\u043b\\summer1\\stm32\\stm-test\\STM32\\gpio\\main.c"
     },
     "name": "port_state",
@@ -93188,7 +93188,7 @@
     "display": "int main(void)",
     "location": {
       "column": "5",
-      "line": "243",
+      "line": "242",
       "path": "C:\\Users\\User\\OneDrive\\\u0420\u0430\u0431\u043e\u0447\u0438\u0439 \u0441\u0442\u043e\u043b\\summer1\\stm32\\stm-test\\STM32\\gpio\\main.c"
     },
     "name": "main",
@@ -93196,13 +93196,13 @@
     "scope": null
   },
   {
-    "ID": "c:main.c@6174@F@main@number",
+    "ID": "c:main.c@6758@F@main@number",
     "What": "Variable",
     "defdec": "Def",
     "display": "number",
     "location": {
-      "column": "10",
-      "line": "248",
+      "column": "14",
+      "line": "247",
       "path": "C:\\Users\\User\\OneDrive\\\u0420\u0430\u0431\u043e\u0447\u0438\u0439 \u0441\u0442\u043e\u043b\\summer1\\stm32\\stm-test\\STM32\\gpio\\main.c"
     },
     "name": "number",
@@ -93210,13 +93210,13 @@
     "scope": null
   },
   {
-    "ID": "c:main.c@6196@F@main@digit_num",
+    "ID": "c:main.c@6784@F@main@digit_num",
     "What": "Variable",
     "defdec": "Def",
     "display": "digit_num",
     "location": {
-      "column": "5",
-      "line": "249",
+      "column": "9",
+      "line": "248",
       "path": "C:\\Users\\User\\OneDrive\\\u0420\u0430\u0431\u043e\u0447\u0438\u0439 \u0441\u0442\u043e\u043b\\summer1\\stm32\\stm-test\\STM32\\gpio\\main.c"
     },
     "name": "digit_num",
@@ -93224,13 +93224,13 @@
     "scope": null
   },
   {
-    "ID": "c:main.c@6196@F@main@time_running",
+    "ID": "c:main.c@6784@F@main@time_running",
     "What": "Variable",
     "defdec": "Dec",
     "display": "time_running",
     "location": {
-      "column": "16",
-      "line": "249",
+      "column": "20",
+      "line": "248",
       "path": "C:\\Users\\User\\OneDrive\\\u0420\u0430\u0431\u043e\u0447\u0438\u0439 \u0441\u0442\u043e\u043b\\summer1\\stm32\\stm-test\\STM32\\gpio\\main.c"
     },
     "name": "time_running",
@@ -93238,13 +93238,13 @@
     "scope": null
   },
   {
-    "ID": "c:main.c@6315@F@main@debouncer_clk",
+    "ID": "c:main.c@6924@F@main@debouncer_clk",
     "What": "Variable",
     "defdec": "Def",
     "display": "debouncer_clk",
     "location": {
-      "column": "10",
-      "line": "255",
+      "column": "14",
+      "line": "254",
       "path": "C:\\Users\\User\\OneDrive\\\u0420\u0430\u0431\u043e\u0447\u0438\u0439 \u0441\u0442\u043e\u043b\\summer1\\stm32\\stm-test\\STM32\\gpio\\main.c"
     },
     "name": "debouncer_clk",
@@ -93252,13 +93252,13 @@
     "scope": null
   },
   {
-    "ID": "c:main.c@6344@F@main@button_pressed",
+    "ID": "c:main.c@6957@F@main@button_pressed",
     "What": "Variable",
     "defdec": "Def",
     "display": "button_pressed",
     "location": {
-      "column": "10",
-      "line": "256",
+      "column": "14",
+      "line": "255",
       "path": "C:\\Users\\User\\OneDrive\\\u0420\u0430\u0431\u043e\u0447\u0438\u0439 \u0441\u0442\u043e\u043b\\summer1\\stm32\\stm-test\\STM32\\gpio\\main.c"
     },
     "name": "button_pressed",
@@ -93266,13 +93266,13 @@
     "scope": null
   },
   {
-    "ID": "c:main.c@6408@F@main@i",
+    "ID": "c:main.c@7036@F@main@i",
     "What": "Variable",
     "defdec": "Def",
     "display": "i",
     "location": {
-      "column": "10",
-      "line": "263",
+      "column": "18",
+      "line": "260",
       "path": "C:\\Users\\User\\OneDrive\\\u0420\u0430\u0431\u043e\u0447\u0438\u0439 \u0441\u0442\u043e\u043b\\summer1\\stm32\\stm-test\\STM32\\gpio\\main.c"
     },
     "name": "i",
