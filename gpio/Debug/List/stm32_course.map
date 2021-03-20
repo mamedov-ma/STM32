@@ -1,0 +1,234 @@
+###############################################################################
+#
+# IAR ELF Linker V8.30.1.114/W32 for ARM                  21/Mar/2021  02:15:53
+# Copyright 2007-2018 IAR Systems AB.
+#
+#    Output file  =  
+#        C:\Users\User\OneDrive\Рабочий
+#        стол\summer1\stm32\stm-test\STM32\gpio\Debug\Exe\stm32_course.out
+#    Map file     =  
+#        C:\Users\User\OneDrive\Рабочий
+#        стол\summer1\stm32\stm-test\STM32\gpio\Debug\List\stm32_course.map
+#    Command line =  
+#        -f C:\Users\User\AppData\Local\Temp\EW2B9D.tmp
+#        ("C:\Users\User\OneDrive\Рабочий
+#        стол\summer1\stm32\stm-test\STM32\gpio\Debug\Obj\main.o"
+#        --no_out_extension -o "C:\Users\User\OneDrive\Рабочий
+#        стол\summer1\stm32\stm-test\STM32\gpio\Debug\Exe\stm32_course.out"
+#        --redirect _Printf=_PrintfFullNoMb --redirect _Scanf=_ScanfFullNoMb
+#        --map "C:\Users\User\OneDrive\Рабочий
+#        стол\summer1\stm32\stm-test\STM32\gpio\Debug\List\stm32_course.map"
+#        --config "C:\Program Files (x86)\IAR Systems\Embedded Workbench
+#        8.1\arm\config\linker\ST\stm32f051x8.icf" --semihosting --entry
+#        __iar_program_start --vfe --text_out locale)
+#
+###############################################################################
+
+*******************************************************************************
+*** RUNTIME MODEL ATTRIBUTES
+***
+
+CppFlavor       = *
+__SystemLibrary = DLib
+__dlib_version  = 6
+
+
+*******************************************************************************
+*** HEAP SELECTION
+***
+
+The basic heap was selected because no calls to memory allocation
+functions were found in the application outside of system library
+functions, and there are calls to deallocation functions in the
+application.
+
+
+*******************************************************************************
+*** PLACEMENT SUMMARY
+***
+
+"A0":  place at 0x800'0000 { ro section .intvec };
+"P1":  place in [from 0x800'0000 to 0x800'ffff] { ro };
+define block CSTACK with size = 2K, alignment = 8 { };
+define block HEAP with size = 2K, alignment = 8 { };
+"P2":  place in [from 0x2000'0000 to 0x2000'1fff] {
+          rw, block CSTACK, block HEAP };
+initialize by copy { rw };
+
+  Section            Kind         Address   Size  Object
+  -------            ----         -------   ----  ------
+"A0":                                       0x40
+  .intvec            ro code   0x800'0000   0x40  vector_table_M.o [3]
+                             - 0x800'0040   0x40
+
+"P1":                                      0x5f4
+  .text              ro code   0x800'0040  0x3d4  main.o [1]
+  .text              ro code   0x800'0414   0x34  ABImemcpy.o [3]
+  .text              ro code   0x800'0448   0xe0  I32DivModFast.o [3]
+  .text              ro code   0x800'0528    0x2  IntDivZer.o [3]
+  .text              ro code   0x800'052a    0x2  vector_table_M.o [3]
+  .rodata            const     0x800'052c   0x40  main.o [1]
+  .text              ro code   0x800'056c   0x30  copy_init3.o [3]
+  .text              ro code   0x800'059c   0x28  data_init.o [3]
+  .iar.init_table    const     0x800'05c4   0x14  - Linker created -
+  .text              ro code   0x800'05d8   0x1e  cmain.o [3]
+  .text              ro code   0x800'05f6    0x4  low_level_init.o [2]
+  .text              ro code   0x800'05fa    0x8  exit.o [2]
+  .text              ro code   0x800'0604    0xa  cexit.o [3]
+  .text              ro code   0x800'0610   0x14  exit.o [4]
+  .text              ro code   0x800'0624    0xc  cstartup_M.o [3]
+  Initializer bytes  const     0x800'0630    0x4  <for P2-1>
+  .rodata            const     0x800'0634    0x0  copy_init3.o [3]
+                             - 0x800'0634  0x5f4
+
+"P2", part 1 of 2:                           0x4
+  P2-1                        0x2000'0000    0x4  <Init block>
+    .data            inited   0x2000'0000    0x4  main.o [1]
+                            - 0x2000'0004    0x4
+
+"P2", part 2 of 2:                         0x800
+  CSTACK                      0x2000'0008  0x800  <Block>
+    CSTACK           uninit   0x2000'0008  0x800  <Block tail>
+                            - 0x2000'0808  0x800
+
+Unused ranges:
+
+         From           To    Size
+         ----           --    ----
+   0x800'0634   0x800'ffff  0xf9cc
+  0x2000'0004  0x2000'0007     0x4
+  0x2000'0808  0x2000'1fff  0x17f8
+
+
+*******************************************************************************
+*** INIT TABLE
+***
+
+          Address      Size
+          -------      ----
+Copy (__iar_copy_init3)
+    1 source range, total size 0x4:
+           0x800'0630   0x4
+    1 destination range, total size 0x4:
+          0x2000'0000   0x4
+
+
+
+*******************************************************************************
+*** MODULE SUMMARY
+***
+
+    Module            ro code  ro data  rw data
+    ------            -------  -------  -------
+command line/config:
+    -------------------------------------------
+    Total:
+
+C:\Users\User\OneDrive\Рабочий стол\summer1\stm32\stm-test\STM32\gpio\Debug\Obj: [1]
+    main.o                980       68        4
+    -------------------------------------------
+    Total:                980       68        4
+
+dl6M_tln.a: [2]
+    exit.o                  8
+    low_level_init.o        4
+    -------------------------------------------
+    Total:                 12
+
+rt6M_tl.a: [3]
+    ABImemcpy.o            52
+    I32DivModFast.o       224
+    IntDivZer.o             2
+    cexit.o                10
+    cmain.o                30
+    copy_init3.o           48
+    cstartup_M.o           12
+    data_init.o            40
+    vector_table_M.o       66
+    -------------------------------------------
+    Total:                484
+
+shb_l.a: [4]
+    exit.o                 20
+    -------------------------------------------
+    Total:                 20
+
+    Gaps                    4
+    Linker created                  20    2 048
+-----------------------------------------------
+    Grand Total:        1 500       88    2 052
+
+
+*******************************************************************************
+*** ENTRY LIST
+***
+
+Entry                       Address  Size  Type      Object
+-----                       -------  ----  ----      ------
+.iar.init_table$$Base    0x800'05c4         --   Gb  - Linker created -
+.iar.init_table$$Limit   0x800'05d8         --   Gb  - Linker created -
+?main                    0x800'05d9        Code  Gb  cmain.o [3]
+CSTACK$$Base            0x2000'0008         --   Gb  - Linker created -
+CSTACK$$Limit           0x2000'0808         --   Gb  - Linker created -
+LL_AHB1_GRP1_EnableClock
+                         0x800'00e3  0x16  Code  Lc  main.o [1]
+LL_FLASH_SetLatency      0x800'00d5   0xe  Code  Lc  main.o [1]
+LL_GPIO_IsInputPinSet    0x800'0115  0x14  Code  Lc  main.o [1]
+LL_GPIO_ReadOutputPort   0x800'012d   0x4  Code  Lc  main.o [1]
+LL_GPIO_SetPinMode       0x800'00f9  0x1c  Code  Lc  main.o [1]
+LL_GPIO_TogglePin        0x800'0131   0x8  Code  Lc  main.o [1]
+LL_GPIO_WriteOutputPort
+                         0x800'0129   0x4  Code  Lc  main.o [1]
+LL_RCC_GetSysClkSource   0x800'0069   0xa  Code  Lc  main.o [1]
+LL_RCC_HSI_Enable        0x800'0041   0xc  Code  Lc  main.o [1]
+LL_RCC_HSI_IsReady       0x800'004d   0xe  Code  Lc  main.o [1]
+LL_RCC_PLL_ConfigDomain_SYS
+                         0x800'00ab  0x2a  Code  Lc  main.o [1]
+LL_RCC_PLL_Enable        0x800'008f   0xe  Code  Lc  main.o [1]
+LL_RCC_PLL_IsReady       0x800'009d   0xe  Code  Lc  main.o [1]
+LL_RCC_SetAHBPrescaler   0x800'0073   0xe  Code  Lc  main.o [1]
+LL_RCC_SetAPB1Prescaler
+                         0x800'0081   0xe  Code  Lc  main.o [1]
+LL_RCC_SetSysClkSource   0x800'005b   0xe  Code  Lc  main.o [1]
+Region$$Table$$Base      0x800'05c4         --   Gb  - Linker created -
+Region$$Table$$Limit     0x800'05d8         --   Gb  - Linker created -
+__ICFEDIT_region_RAM_end__ {Abs}
+                        0x2000'1fff        Data  Gb  <internal module>
+__ICFEDIT_region_RAM_start__ {Abs}
+                        0x2000'0000        Data  Gb  <internal module>
+__aeabi_idiv             0x800'0475        Code  Gb  I32DivModFast.o [3]
+__aeabi_idiv0            0x800'0529        Code  Gb  IntDivZer.o [3]
+__aeabi_idivmod          0x800'0475        Code  Gb  I32DivModFast.o [3]
+__aeabi_memcpy4          0x800'0415        Code  Wk  ABImemcpy.o [3]
+__aeabi_uidiv            0x800'047b        Code  Gb  I32DivModFast.o [3]
+__aeabi_uidivmod         0x800'047b        Code  Gb  I32DivModFast.o [3]
+__cmain                  0x800'05d9        Code  Gb  cmain.o [3]
+__exit                   0x800'0611  0x14  Code  Gb  exit.o [4]
+__iar_copy_init3         0x800'056d  0x30  Code  Gb  copy_init3.o [3]
+__iar_data_init3         0x800'059d  0x28  Code  Gb  data_init.o [3]
+__iar_program_start      0x800'0625        Code  Gb  cstartup_M.o [3]
+__low_level_init         0x800'05f7   0x4  Code  Gb  low_level_init.o [2]
+__vector_table           0x800'0000        Data  Gb  vector_table_M.o [3]
+_call_main               0x800'05e5        Code  Gb  cmain.o [3]
+_exit                    0x800'0605        Code  Gb  cexit.o [3]
+_main                    0x800'05f3        Code  Gb  cmain.o [3]
+delay_10ms               0x800'0241   0xc  Code  Lc  main.o [1]
+dyn_display              0x800'024d  0xec  Code  Gb  main.o [1]
+dyn_display::mask       0x2000'0000   0x4  Data  Lc  main.o [1]
+exit                     0x800'05fb   0x8  Code  Gb  exit.o [2]
+gpio_config              0x800'017f  0xc2  Code  Lc  main.o [1]
+main                     0x800'0345  0xa6  Code  Gb  main.o [1]
+rcc_config               0x800'0139  0x46  Code  Lc  main.o [1]
+
+
+[1] = C:\Users\User\OneDrive\Рабочий стол\summer1\stm32\stm-test\STM32\gpio\Debug\Obj
+[2] = dl6M_tln.a
+[3] = rt6M_tl.a
+[4] = shb_l.a
+
+  1 500 bytes of readonly  code memory
+     88 bytes of readonly  data memory
+  2 052 bytes of readwrite data memory
+
+Errors: none
+Warnings: none
