@@ -194,7 +194,7 @@ void dyn_display(uint16_t number, int digit_num)
     (number % 10000) / 1000,
     };
     
-    out = decoder[digit_num] | position[digit_num];
+    out = num[digit_num % 4] | position[digit_num % 4];
 
     uint32_t port_state = 0;
 
