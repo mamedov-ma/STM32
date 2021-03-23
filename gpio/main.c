@@ -90,18 +90,18 @@ static void gpio_config(void)
     * Init port for indicator
     */
     LL_AHB1_GRP1_EnableClock(LL_AHB1_GRP1_PERIPH_GPIOB);
-    LL_GPIO_SetPinMode(GPIOB, LL_GPIO_PIN_0, LL_GPIO_MODE_OUTPUT);
-    LL_GPIO_SetPinMode(GPIOB, LL_GPIO_PIN_1, LL_GPIO_MODE_OUTPUT);
-    LL_GPIO_SetPinMode(GPIOB, LL_GPIO_PIN_2, LL_GPIO_MODE_OUTPUT);
-    LL_GPIO_SetPinMode(GPIOB, LL_GPIO_PIN_3, LL_GPIO_MODE_OUTPUT);
-    LL_GPIO_SetPinMode(GPIOB, LL_GPIO_PIN_4, LL_GPIO_MODE_OUTPUT);
-    LL_GPIO_SetPinMode(GPIOB, LL_GPIO_PIN_5, LL_GPIO_MODE_OUTPUT);
-    LL_GPIO_SetPinMode(GPIOB, LL_GPIO_PIN_6, LL_GPIO_MODE_OUTPUT);
-    LL_GPIO_SetPinMode(GPIOB, LL_GPIO_PIN_7, LL_GPIO_MODE_OUTPUT);
-    LL_GPIO_SetPinMode(GPIOB, LL_GPIO_PIN_8, LL_GPIO_MODE_OUTPUT);
-    LL_GPIO_SetPinMode(GPIOB, LL_GPIO_PIN_9, LL_GPIO_MODE_OUTPUT);
-    LL_GPIO_SetPinMode(GPIOB, LL_GPIO_PIN_10, LL_GPIO_MODE_OUTPUT);
-    LL_GPIO_SetPinMode(GPIOB, LL_GPIO_PIN_11, LL_GPIO_MODE_OUTPUT);
+    LL_GPIO_SetPinMode(GPIOB, A,    LL_GPIO_MODE_OUTPUT);
+    LL_GPIO_SetPinMode(GPIOB, B,    LL_GPIO_MODE_OUTPUT);
+    LL_GPIO_SetPinMode(GPIOB, C,    LL_GPIO_MODE_OUTPUT);
+    LL_GPIO_SetPinMode(GPIOB, D,    LL_GPIO_MODE_OUTPUT);
+    LL_GPIO_SetPinMode(GPIOB, E,    LL_GPIO_MODE_OUTPUT);
+    LL_GPIO_SetPinMode(GPIOB, F,    LL_GPIO_MODE_OUTPUT);
+    LL_GPIO_SetPinMode(GPIOB, G,    LL_GPIO_MODE_OUTPUT);
+    LL_GPIO_SetPinMode(GPIOB, PD,   LL_GPIO_MODE_OUTPUT);
+    LL_GPIO_SetPinMode(GPIOB, POS0, LL_GPIO_MODE_OUTPUT);
+    LL_GPIO_SetPinMode(GPIOB, POS1, LL_GPIO_MODE_OUTPUT);
+    LL_GPIO_SetPinMode(GPIOB, POS2, LL_GPIO_MODE_OUTPUT);
+    LL_GPIO_SetPinMode(GPIOB, POS3, LL_GPIO_MODE_OUTPUT);
     
     /*
     * Init port for USER button
@@ -238,16 +238,19 @@ int main(void)
             dyn_display((number / 600) * 1000 + number % 600, digit_num);
             digit_num++;
             delay_10ms();
+
             if (LL_GPIO_IsInputPinSet(GPIOA, LL_GPIO_PIN_0)) 
             {
                 button_pressed = 1;
                 debouncer_clk = 0;
             } 
+
             if (button_pressed)
             {
                 debouncer_clk++;
                 // delay_10ms();
             }
+
             if (debouncer_clk >= 5)
             {
                 LL_GPIO_TogglePin(GPIOC, LL_GPIO_PIN_8);
@@ -257,6 +260,7 @@ int main(void)
                 debouncer_clk = 0;
             }
         }
+
         if(time_running == 1)
         {
             ++number;
@@ -265,60 +269,60 @@ int main(void)
 
 
 
-int newnum = number;
+    int newnum = number;
     
-while(1)
-{
-    dyn_display(newnum, digit_num);
-    digit_num ++;
-    delay_10ms();
+    while(1)
+    {
+        dyn_display(newnum, digit_num);
+        digit_num ++;
+        delay_10ms();
 
 
-    #if defined(TURN_ON_CONTACT_DEBOUNCER)
+        #if defined(TURN_ON_CONTACT_DEBOUNCER)
 
-        /*
-        * if button is pressed then set flag and reset counter
-        */
-        if (LL_GPIO_IsInputPinSet(GPIOA, LL_GPIO_PIN_0)) 
-        {
-            button_pressed = 1;
-            debouncer_clk = 0;
-            newnum = number + 1;
-        }
+           /*
+            * if button is pressed then set flag and reset counter
+            */
+            if (LL_GPIO_IsInputPinSet(GPIOA, LL_GPIO_PIN_0)) 
+            {
+                button_pressed = 1;
+                debouncer_clk = 0;
+                newnum = number + 1;
+            }
         
-        /*
-        * if flag is set increase counter
-        */
-        if (button_pressed)
-        {
-            debouncer_clk++;
-            // delay_10ms();
-        }
+           /*
+            * if flag is set increase counter
+            */
+            if (button_pressed)
+            {
+                debouncer_clk++;
+                // delay_10ms();
+            }
     
-        /*
-        * If counter manages to count up to 5 then button is not bouncing
-        * any longer and we need to get action! (process it)
-        * NOTE: 5 is just experimental value
-        */
-        if (debouncer_clk >= 5)
-        {
-            LL_GPIO_TogglePin(GPIOC, LL_GPIO_PIN_8);
-            number = newnum;
-            //set_indicator(number);
-            button_pressed = 0;
-            debouncer_clk = 0;
-        }
+           /*
+            * If counter manages to count up to 5 then button is not bouncing
+            * any longer and we need to get action! (process it)
+            * NOTE: 5 is just experimental value
+            */
+            if (debouncer_clk >= 5)
+            {
+                LL_GPIO_TogglePin(GPIOC, LL_GPIO_PIN_8);
+                number = newnum;
+                //set_indicator(number);
+                button_pressed = 0;
+                debouncer_clk = 0;
+            }
     
-    #else
-        if (LL_GPIO_IsInputPinSet(GPIOA, LL_GPIO_PIN_0))
-        {
-            LL_GPIO_TogglePin(GPIOC, LL_GPIO_PIN_8);
-            number++;
-            //set_indicator(number);
-        }
+        #else
+            if (LL_GPIO_IsInputPinSet(GPIOA, LL_GPIO_PIN_0))
+            {
+                LL_GPIO_TogglePin(GPIOC, LL_GPIO_PIN_8);
+                number++;
+                //set_indicator(number);
+            }
    
-    #endif
-    }
+        #endif
+        }
 
 
     return 0;
