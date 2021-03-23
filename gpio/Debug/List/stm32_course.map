@@ -1,6 +1,6 @@
 ###############################################################################
 #
-# IAR ELF Linker V8.30.1.114/W32 for ARM                  21/Mar/2021  02:42:50
+# IAR ELF Linker V8.30.1.114/W32 for ARM                  23/Mar/2021  19:23:24
 # Copyright 2007-2018 IAR Systems AB.
 #
 #    Output file  =  
@@ -10,7 +10,7 @@
 #        C:\Users\User\OneDrive\Рабочий
 #        стол\summer1\stm32\stm-test\STM32\gpio\Debug\List\stm32_course.map
 #    Command line =  
-#        -f C:\Users\User\AppData\Local\Temp\EWD5FF.tmp
+#        -f C:\Users\User\AppData\Local\Temp\EW77A2.tmp
 #        ("C:\Users\User\OneDrive\Рабочий
 #        стол\summer1\stm32\stm-test\STM32\gpio\Debug\Obj\main.o"
 #        --no_out_extension -o "C:\Users\User\OneDrive\Рабочий
@@ -61,25 +61,26 @@ initialize by copy { rw };
   .intvec            ro code   0x800'0000   0x40  vector_table_M.o [3]
                              - 0x800'0040   0x40
 
-"P1":                                      0x5f4
-  .text              ro code   0x800'0040  0x3d4  main.o [1]
-  .text              ro code   0x800'0414   0x34  ABImemcpy.o [3]
-  .text              ro code   0x800'0448   0xe0  I32DivModFast.o [3]
-  .text              ro code   0x800'0528    0x2  IntDivZer.o [3]
-  .text              ro code   0x800'052a    0x2  vector_table_M.o [3]
-  .rodata            const     0x800'052c   0x40  main.o [1]
-  .text              ro code   0x800'056c   0x30  copy_init3.o [3]
-  .text              ro code   0x800'059c   0x28  data_init.o [3]
-  .iar.init_table    const     0x800'05c4   0x14  - Linker created -
-  .text              ro code   0x800'05d8   0x1e  cmain.o [3]
-  .text              ro code   0x800'05f6    0x4  low_level_init.o [2]
-  .text              ro code   0x800'05fa    0x8  exit.o [2]
-  .text              ro code   0x800'0604    0xa  cexit.o [3]
-  .text              ro code   0x800'0610   0x14  exit.o [4]
-  .text              ro code   0x800'0624    0xc  cstartup_M.o [3]
-  Initializer bytes  const     0x800'0630    0x4  <for P2-1>
-  .rodata            const     0x800'0634    0x0  copy_init3.o [3]
-                             - 0x800'0634  0x5f4
+"P1":                                      0x5a4
+  .text              ro code   0x800'0040  0x374  main.o [1]
+  .text              ro code   0x800'03b4   0x34  ABImemcpy.o [3]
+  .text              ro code   0x800'03e8   0xe0  I32DivModFast.o [3]
+  .text              ro code   0x800'04c8    0x2  IntDivZer.o [3]
+  .text              ro code   0x800'04ca    0x2  vector_table_M.o [3]
+  .rodata            const     0x800'04cc   0x40  main.o [1]
+  .text              ro code   0x800'050c   0x30  copy_init3.o [3]
+  .text              ro code   0x800'053c   0x28  data_init.o [3]
+  .iar.init_table    const     0x800'0564   0x14  - Linker created -
+  .text              ro code   0x800'0578   0x1e  cmain.o [3]
+  .text              ro code   0x800'0596    0x4  low_level_init.o [2]
+  .text              ro code   0x800'059a    0x8  exit.o [2]
+  .text              ro code   0x800'05a4    0xa  cexit.o [3]
+  .text              ro code   0x800'05b0   0x14  exit.o [4]
+  .rodata            const     0x800'05c4   0x10  main.o [1]
+  .text              ro code   0x800'05d4    0xc  cstartup_M.o [3]
+  Initializer bytes  const     0x800'05e0    0x4  <for P2-1>
+  .rodata            const     0x800'05e4    0x0  copy_init3.o [3]
+                             - 0x800'05e4  0x5a4
 
 "P2", part 1 of 2:                           0x4
   P2-1                        0x2000'0000    0x4  <Init block>
@@ -95,7 +96,7 @@ Unused ranges:
 
          From           To    Size
          ----           --    ----
-   0x800'0634   0x800'ffff  0xf9cc
+   0x800'05e4   0x800'ffff  0xfa1c
   0x2000'0004  0x2000'0007     0x4
   0x2000'0808  0x2000'1fff  0x17f8
 
@@ -108,7 +109,7 @@ Unused ranges:
           -------      ----
 Copy (__iar_copy_init3)
     1 source range, total size 0x4:
-           0x800'0630   0x4
+           0x800'05e0   0x4
     1 destination range, total size 0x4:
           0x2000'0000   0x4
 
@@ -125,9 +126,9 @@ command line/config:
     Total:
 
 C:\Users\User\OneDrive\Рабочий стол\summer1\stm32\stm-test\STM32\gpio\Debug\Obj: [1]
-    main.o                980       68        4
+    main.o                884       84        4
     -------------------------------------------
-    Total:                980       68        4
+    Total:                884       84        4
 
 dl6M_tln.a: [2]
     exit.o                  8
@@ -156,7 +157,7 @@ shb_l.a: [4]
     Gaps                    4
     Linker created                  20    2 048
 -----------------------------------------------
-    Grand Total:        1 500       88    2 052
+    Grand Total:        1 404      104    2 052
 
 
 *******************************************************************************
@@ -165,9 +166,9 @@ shb_l.a: [4]
 
 Entry                       Address  Size  Type      Object
 -----                       -------  ----  ----      ------
-.iar.init_table$$Base    0x800'05c4         --   Gb  - Linker created -
-.iar.init_table$$Limit   0x800'05d8         --   Gb  - Linker created -
-?main                    0x800'05d9        Code  Gb  cmain.o [3]
+.iar.init_table$$Base    0x800'0564         --   Gb  - Linker created -
+.iar.init_table$$Limit   0x800'0578         --   Gb  - Linker created -
+?main                    0x800'0579        Code  Gb  cmain.o [3]
 CSTACK$$Base            0x2000'0008         --   Gb  - Linker created -
 CSTACK$$Limit           0x2000'0808         --   Gb  - Linker created -
 LL_AHB1_GRP1_EnableClock
@@ -190,34 +191,34 @@ LL_RCC_SetAHBPrescaler   0x800'0073   0xe  Code  Lc  main.o [1]
 LL_RCC_SetAPB1Prescaler
                          0x800'0081   0xe  Code  Lc  main.o [1]
 LL_RCC_SetSysClkSource   0x800'005b   0xe  Code  Lc  main.o [1]
-Region$$Table$$Base      0x800'05c4         --   Gb  - Linker created -
-Region$$Table$$Limit     0x800'05d8         --   Gb  - Linker created -
+Region$$Table$$Base      0x800'0564         --   Gb  - Linker created -
+Region$$Table$$Limit     0x800'0578         --   Gb  - Linker created -
 __ICFEDIT_region_RAM_end__ {Abs}
                         0x2000'1fff        Data  Gb  <internal module>
 __ICFEDIT_region_RAM_start__ {Abs}
                         0x2000'0000        Data  Gb  <internal module>
-__aeabi_idiv             0x800'0475        Code  Gb  I32DivModFast.o [3]
-__aeabi_idiv0            0x800'0529        Code  Gb  IntDivZer.o [3]
-__aeabi_idivmod          0x800'0475        Code  Gb  I32DivModFast.o [3]
-__aeabi_memcpy4          0x800'0415        Code  Wk  ABImemcpy.o [3]
-__aeabi_uidiv            0x800'047b        Code  Gb  I32DivModFast.o [3]
-__aeabi_uidivmod         0x800'047b        Code  Gb  I32DivModFast.o [3]
-__cmain                  0x800'05d9        Code  Gb  cmain.o [3]
-__exit                   0x800'0611  0x14  Code  Gb  exit.o [4]
-__iar_copy_init3         0x800'056d  0x30  Code  Gb  copy_init3.o [3]
-__iar_data_init3         0x800'059d  0x28  Code  Gb  data_init.o [3]
-__iar_program_start      0x800'0625        Code  Gb  cstartup_M.o [3]
-__low_level_init         0x800'05f7   0x4  Code  Gb  low_level_init.o [2]
+__aeabi_idiv             0x800'0415        Code  Gb  I32DivModFast.o [3]
+__aeabi_idiv0            0x800'04c9        Code  Gb  IntDivZer.o [3]
+__aeabi_idivmod          0x800'0415        Code  Gb  I32DivModFast.o [3]
+__aeabi_memcpy4          0x800'03b5        Code  Wk  ABImemcpy.o [3]
+__aeabi_uidiv            0x800'041b        Code  Gb  I32DivModFast.o [3]
+__aeabi_uidivmod         0x800'041b        Code  Gb  I32DivModFast.o [3]
+__cmain                  0x800'0579        Code  Gb  cmain.o [3]
+__exit                   0x800'05b1  0x14  Code  Gb  exit.o [4]
+__iar_copy_init3         0x800'050d  0x30  Code  Gb  copy_init3.o [3]
+__iar_data_init3         0x800'053d  0x28  Code  Gb  data_init.o [3]
+__iar_program_start      0x800'05d5        Code  Gb  cstartup_M.o [3]
+__low_level_init         0x800'0597   0x4  Code  Gb  low_level_init.o [2]
 __vector_table           0x800'0000        Data  Gb  vector_table_M.o [3]
-_call_main               0x800'05e5        Code  Gb  cmain.o [3]
-_exit                    0x800'0605        Code  Gb  cexit.o [3]
-_main                    0x800'05f3        Code  Gb  cmain.o [3]
+_call_main               0x800'0585        Code  Gb  cmain.o [3]
+_exit                    0x800'05a5        Code  Gb  cexit.o [3]
+_main                    0x800'0593        Code  Gb  cmain.o [3]
 delay_10ms               0x800'0241   0xc  Code  Lc  main.o [1]
-dyn_display              0x800'024d  0xec  Code  Gb  main.o [1]
+dyn_display              0x800'024d  0xc2  Code  Gb  main.o [1]
 dyn_display::mask       0x2000'0000   0x4  Data  Lc  main.o [1]
-exit                     0x800'05fb   0x8  Code  Gb  exit.o [2]
+exit                     0x800'059b   0x8  Code  Gb  exit.o [2]
 gpio_config              0x800'017f  0xc2  Code  Lc  main.o [1]
-main                     0x800'0345  0xa6  Code  Gb  main.o [1]
+main                     0x800'030f  0x6c  Code  Gb  main.o [1]
 rcc_config               0x800'0139  0x46  Code  Lc  main.o [1]
 
 
@@ -226,8 +227,8 @@ rcc_config               0x800'0139  0x46  Code  Lc  main.o [1]
 [3] = rt6M_tl.a
 [4] = shb_l.a
 
-  1 500 bytes of readonly  code memory
-     88 bytes of readonly  data memory
+  1 404 bytes of readonly  code memory
+    104 bytes of readonly  data memory
   2 052 bytes of readwrite data memory
 
 Errors: none
