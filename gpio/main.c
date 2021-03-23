@@ -31,6 +31,19 @@
 * Flash Latency(WS) = 1
 */
 
+#define A    LL_GPIO_PIN_0
+#define B    LL_GPIO_PIN_1
+#define C    LL_GPIO_PIN_2
+#define D    LL_GPIO_PIN_3
+#define E    LL_GPIO_PIN_4
+#define F    LL_GPIO_PIN_5
+#define G    LL_GPIO_PIN_6
+#define PD   LL_GPIO_PIN_7
+#define POS0 LL_GPIO_PIN_8
+#define POS1 LL_GPIO_PIN_9
+#define POS2 LL_GPIO_PIN_10
+#define POS3 LL_GPIO_PIN_11
+
 static void rcc_config()
 {
     /* Set FLASH latency */  
@@ -123,102 +136,65 @@ __attribute__((naked)) static void delay_10ms(void)
 void dyn_display(uint16_t number, int digit_num)
 {
 
-    static uint32_t mask = LL_GPIO_PIN_0 | LL_GPIO_PIN_1 | LL_GPIO_PIN_2 | \
-    LL_GPIO_PIN_3 | LL_GPIO_PIN_4 | LL_GPIO_PIN_5 | LL_GPIO_PIN_6 | LL_GPIO_PIN_7 | LL_GPIO_PIN_8 | LL_GPIO_PIN_9 | \
-    LL_GPIO_PIN_10 | LL_GPIO_PIN_11;
+    static uint32_t mask = A | B | C | D | E | F | G | PD | POS0 | POS1 | POS2 | POS3;
 
 
     uint32_t decoder[16] = {
 
-    LL_GPIO_PIN_0 | LL_GPIO_PIN_1 | LL_GPIO_PIN_2 | LL_GPIO_PIN_3 | \
-    LL_GPIO_PIN_4 | LL_GPIO_PIN_5, //0
+    A | B | C | D | E | F, //0
 
-    LL_GPIO_PIN_1 | LL_GPIO_PIN_2, //1
+    B | C, //1
 
-    LL_GPIO_PIN_0 | LL_GPIO_PIN_1 | LL_GPIO_PIN_6 | LL_GPIO_PIN_4 | \
-    LL_GPIO_PIN_3, //2
+    A | B | D | E | G, //2
 
-    LL_GPIO_PIN_0 | LL_GPIO_PIN_1 | LL_GPIO_PIN_6 | LL_GPIO_PIN_2 | \
-    LL_GPIO_PIN_3, //3
+    A | B | C | D | G, //3
 
-    LL_GPIO_PIN_5 | LL_GPIO_PIN_6 | LL_GPIO_PIN_1 |
- 
-    LL_GPIO_PIN_2, //4
+    B | C | F | G, //4
 
-    LL_GPIO_PIN_0 | LL_GPIO_PIN_2 | LL_GPIO_PIN_3 | LL_GPIO_PIN_5 | \
-    LL_GPIO_PIN_6, //5
+    A | C | D | F | G, //5
 
-    LL_GPIO_PIN_0 | LL_GPIO_PIN_2 | LL_GPIO_PIN_3 | LL_GPIO_PIN_4 | \
-    LL_GPIO_PIN_5 | LL_GPIO_PIN_6, //6
+    A | C | D | E | F | G, //6
 
-    LL_GPIO_PIN_0 | LL_GPIO_PIN_1 | LL_GPIO_PIN_2 | LL_GPIO_PIN_11,//7
+    A | B | C,//7
 
-    LL_GPIO_PIN_0 | LL_GPIO_PIN_1 | LL_GPIO_PIN_2 | LL_GPIO_PIN_3 | \
-    LL_GPIO_PIN_4 | LL_GPIO_PIN_5 | LL_GPIO_PIN_6, //8
+    A | B | C | D | E | F | G, //8
 
-    LL_GPIO_PIN_0 | LL_GPIO_PIN_1 | LL_GPIO_PIN_2 | LL_GPIO_PIN_3 | \
-    LL_GPIO_PIN_5 | LL_GPIO_PIN_6, //9
+    A | B | C | D | F | G, //9
 
-    LL_GPIO_PIN_0 | LL_GPIO_PIN_1 | LL_GPIO_PIN_2 | LL_GPIO_PIN_4 | \
-    LL_GPIO_PIN_5 | LL_GPIO_PIN_6, //10
+    A | B | C | E | F | G, //A
 
-    LL_GPIO_PIN_0 | LL_GPIO_PIN_1 | LL_GPIO_PIN_2 | LL_GPIO_PIN_3 | \
-    LL_GPIO_PIN_4 | LL_GPIO_PIN_5 | LL_GPIO_PIN_6, //11
+    A | B | C | D | E | F | G, //B
 
-    LL_GPIO_PIN_0 | LL_GPIO_PIN_3 | LL_GPIO_PIN_4 | LL_GPIO_PIN_5, //12
+    A | D | E | F, //C
 
-    LL_GPIO_PIN_0 | LL_GPIO_PIN_1 | LL_GPIO_PIN_2 | LL_GPIO_PIN_3 | \
-    LL_GPIO_PIN_4 | LL_GPIO_PIN_5, //13
+    A | B | C | D | E | F, //D
 
-    LL_GPIO_PIN_0 | LL_GPIO_PIN_3 | LL_GPIO_PIN_4 | LL_GPIO_PIN_5 | \
-    LL_GPIO_PIN_6, //14
+    A | D | E | F | G, //E
 
-    LL_GPIO_PIN_0 | LL_GPIO_PIN_4 | LL_GPIO_PIN_5 | LL_GPIO_PIN_6, //15
-
-    //[16] =
+    A | E | F | G, //F
+    
     };
-
-
-    //LL_GPIO_WriteOutputPort(GPIOC, ...);
 
     uint32_t out = 0;
 
-
-
-
-    switch (digit_num % 4)
-    {
-    case 0:
-        //LL_GPIO_SetOutputPin(GPIOB, LL_GPIO_PIN_8);
-
-        out = decoder[number % 10] | LL_GPIO_PIN_9 | \
-        LL_GPIO_PIN_10 | LL_GPIO_PIN_11;
-        break;
-
-    case 1:
-        //LL_GPIO_SetOutputPin(GPIOB, LL_GPIO_PIN_9);
-
-        out = decoder[(number % 100) / 10] | LL_GPIO_PIN_8 | \
-        LL_GPIO_PIN_10 | LL_GPIO_PIN_11 | LL_GPIO_PIN_7;
-        break;
-
-    case 2:
-        //LL_GPIO_SetOutputPin(GPIOB, LL_GPIO_PIN_10);
-
-        out = decoder[(number % 1000) / 100] | LL_GPIO_PIN_8 | \
-        LL_GPIO_PIN_9 | LL_GPIO_PIN_11;
-        break;
-
-    case 3:
-        //LL_GPIO_SetOutputPin(GPIOB, LL_GPIO_PIN_11);
-
-        out = decoder[(number % 10000) / 1000] | LL_GPIO_PIN_8 | \
-        LL_GPIO_PIN_9 | LL_GPIO_PIN_10 | LL_GPIO_PIN_7;
-        break;
-
-    default:
-        break;
-    }
+    uint32_t position[4] = {
+    
+           POS1 | POS2 | POS3,//first indicator
+    POS0 |        POS2 | POS3,//second indicator
+    POS0 | POS1 |        POS3,//third indicator
+    POS0 | POS1 | POS2,       //fourth indicator 
+      
+    };
+    
+    uint32_t num[4] = {
+      
+     number % 10,
+    (number % 100)   / 10,
+    (number % 1000)  / 100,
+    (number % 10000) / 1000,
+    };
+    
+    out = decoder[digit_num] | position[digit_num];
 
     uint32_t port_state = 0;
 
