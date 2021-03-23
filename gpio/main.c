@@ -269,10 +269,11 @@ int main(void)
 
 
 
-
+newnum = number;
+    
 while(1)
 {
-    dyn_display(number, digit_num);
+    dyn_display(newnum, digit_num);
     digit_num ++;
     delay_10ms();
 
@@ -286,6 +287,7 @@ while(1)
         {
             button_pressed = 1;
             debouncer_clk = 0;
+            newnum = number + 1;
         }
         
         /*
@@ -305,7 +307,7 @@ while(1)
         if (debouncer_clk >= 5)
         {
             LL_GPIO_TogglePin(GPIOC, LL_GPIO_PIN_8);
-            number++;
+            number = newnum;
             //set_indicator(number);
             button_pressed = 0;
             debouncer_clk = 0;
