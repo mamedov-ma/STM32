@@ -231,7 +231,7 @@ int main(void)
     uint32_t button_pressed = 0;
     #endif
 
-    while (1)
+    /*while (1)
     {
         for (int i = 0; i < 72; i++)
         {
@@ -265,11 +265,11 @@ int main(void)
         {
             ++number;
          }
-    } 
+    } */
 
 
 
-newnum = number;
+int newnum = number;
     
 while(1)
 {
