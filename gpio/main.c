@@ -188,10 +188,10 @@ void dyn_display(uint16_t number, int digit_num)
     
     uint32_t num[4] = {
       
-     number % 10,
-    (number % 100)   / 10,
-    (number % 1000)  / 100,
-    (number % 10000) / 1000,
+    decoder[ number % 10],
+    decoder[(number % 100)   / 10],
+    decoder[(number % 1000)  / 100],
+    decoder[(number % 10000) / 1000],
     };
     
     out = num[digit_num % 4] | position[digit_num % 4];
