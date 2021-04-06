@@ -16,8 +16,6 @@
 */
 
 
-#define TURN_ON_CONTACT_DEBOUNCER
-
 /**
 * System Clock Configuration
 * The system Clock is configured as follow :
@@ -90,18 +88,18 @@ static void gpio_config(void)
     * Init port for indicator
     */
     LL_AHB1_GRP1_EnableClock(LL_AHB1_GRP1_PERIPH_GPIOB);
-    LL_GPIO_SetPinMode(GPIOB, LL_GPIO_PIN_0, LL_GPIO_MODE_OUTPUT);
-    LL_GPIO_SetPinMode(GPIOB, LL_GPIO_PIN_1, LL_GPIO_MODE_OUTPUT);
-    LL_GPIO_SetPinMode(GPIOB, LL_GPIO_PIN_2, LL_GPIO_MODE_OUTPUT);
-    LL_GPIO_SetPinMode(GPIOB, LL_GPIO_PIN_3, LL_GPIO_MODE_OUTPUT);
-    LL_GPIO_SetPinMode(GPIOB, LL_GPIO_PIN_4, LL_GPIO_MODE_OUTPUT);
-    LL_GPIO_SetPinMode(GPIOB, LL_GPIO_PIN_5, LL_GPIO_MODE_OUTPUT);
-    LL_GPIO_SetPinMode(GPIOB, LL_GPIO_PIN_6, LL_GPIO_MODE_OUTPUT);
-    LL_GPIO_SetPinMode(GPIOB, LL_GPIO_PIN_7, LL_GPIO_MODE_OUTPUT);
-    LL_GPIO_SetPinMode(GPIOB, LL_GPIO_PIN_8, LL_GPIO_MODE_OUTPUT);
-    LL_GPIO_SetPinMode(GPIOB, LL_GPIO_PIN_9, LL_GPIO_MODE_OUTPUT);
-    LL_GPIO_SetPinMode(GPIOB, LL_GPIO_PIN_10, LL_GPIO_MODE_OUTPUT);
-    LL_GPIO_SetPinMode(GPIOB, LL_GPIO_PIN_11, LL_GPIO_MODE_OUTPUT);
+    LL_GPIO_SetPinMode(GPIOB, A,    LL_GPIO_MODE_OUTPUT);
+    LL_GPIO_SetPinMode(GPIOB, B,    LL_GPIO_MODE_OUTPUT);
+    LL_GPIO_SetPinMode(GPIOB, C,    LL_GPIO_MODE_OUTPUT);
+    LL_GPIO_SetPinMode(GPIOB, D,    LL_GPIO_MODE_OUTPUT);
+    LL_GPIO_SetPinMode(GPIOB, E,    LL_GPIO_MODE_OUTPUT);
+    LL_GPIO_SetPinMode(GPIOB, F,    LL_GPIO_MODE_OUTPUT);
+    LL_GPIO_SetPinMode(GPIOB, G,    LL_GPIO_MODE_OUTPUT);
+    LL_GPIO_SetPinMode(GPIOB, PD,   LL_GPIO_MODE_OUTPUT);
+    LL_GPIO_SetPinMode(GPIOB, POS0, LL_GPIO_MODE_OUTPUT);
+    LL_GPIO_SetPinMode(GPIOB, POS1, LL_GPIO_MODE_OUTPUT);
+    LL_GPIO_SetPinMode(GPIOB, POS2, LL_GPIO_MODE_OUTPUT);
+    LL_GPIO_SetPinMode(GPIOB, POS3, LL_GPIO_MODE_OUTPUT);
     
     /*
     * Init port for USER button
@@ -138,40 +136,24 @@ void dyn_display(uint16_t number, int digit_num)
 
     static uint32_t mask = A | B | C | D | E | F | G | PD | POS0 | POS1 | POS2 | POS3;
 
-
     uint32_t decoder[16] = {
-
-    A | B | C | D | E | F, //0
-
-    B | C, //1
-
-    A | B | D | E | G, //2
-
-    A | B | C | D | G, //3
-
-    B | C | F | G, //4
-
-    A | C | D | F | G, //5
-
-    A | C | D | E | F | G, //6
-
-    A | B | C,//7
-
-    A | B | C | D | E | F | G, //8
-
-    A | B | C | D | F | G, //9
-
-    A | B | C | E | F | G, //A
-
-    A | B | C | D | E | F | G, //B
-
-    A | D | E | F, //C
-
-    A | B | C | D | E | F, //D
-
-    A | D | E | F | G, //E
-
-    A | E | F | G, //F
+    
+    A | B | C | D | E | F,      //0
+    B | C,                      //1
+    A | B | D | E | G,          //2
+    A | B | C | D | G,          //3
+    B | C | F | G,              //4
+    A | C | D | F | G,          //5
+    A | C | D | E | F | G,      //6
+    A | B | C,                  //7
+    A | B | C | D | E | F | G,  //8
+    A | B | C | D | F | G,      //9
+    A | B | C | E | F | G,      //A
+    A | B | C | D | E | F | G,  //B
+    A | D | E | F,              //C
+    A | B | C | D | E | F,      //D
+    A | D | E | F | G,          //E
+    A | E | F | G,              //F
     
     };
 
@@ -179,19 +161,20 @@ void dyn_display(uint16_t number, int digit_num)
 
     uint32_t position[4] = {
     
-           POS1 | POS2 | POS3,//first indicator
-    POS0 |        POS2 | POS3,//second indicator
-    POS0 | POS1 |        POS3,//third indicator
-    POS0 | POS1 | POS2,       //fourth indicator 
+             POS1 | POS2 | POS3,//first indicator
+      POS0 |        POS2 | POS3,//second indicator
+      POS0 | POS1 |        POS3,//third indicator
+      POS0 | POS1 | POS2,       //fourth indicator 
       
     };
     
     uint32_t num[4] = {
       
-     number % 10,
-    (number % 100)   / 10,
-    (number % 1000)  / 100,
-    (number % 10000) / 1000,
+      decoder[ number % 10],
+      decoder[(number % 100)   / 10],
+      decoder[(number % 1000)  / 100],
+      decoder[(number % 10000) / 1000],
+      
     };
     
     out = num[digit_num % 4] | position[digit_num % 4];
@@ -209,8 +192,29 @@ void dyn_display(uint16_t number, int digit_num)
     return;
 }
 
+int button_status, debouncer_clk = 0;
+int Button_Status()
+{ 
+    if (LL_GPIO_IsInputPinSet(GPIOA, LL_GPIO_PIN_0)) 
+    {
+        button_status = 1;
+        debouncer_clk = 0;
+    }
+    
+    if (button_status)
+    {
+        debouncer_clk++;
+    }
+    
+    if (debouncer_clk >= 5)
+    {
+        LL_GPIO_TogglePin(GPIOC, LL_GPIO_PIN_8);
+        button_status = 0;
+        debouncer_clk = 0;
+    }    
 
-
+    return button_status;
+}
 
 
 
@@ -221,15 +225,12 @@ int main(void)
     gpio_config();
 
     uint16_t number = 0;
-    int digit_num, time_running = 1;
-
-    #if defined(TURN_ON_CONTACT_DEBOUNCER)
-    /*
-    * For contact debouncer algorithm 
-    */
+    int digit_num, time_running, new_time_running = 1;
     uint32_t debouncer_clk = 0;
     uint32_t button_pressed = 0;
-    #endif
+    int button_status = 0;
+    int newnum = number;
+    
 
     /*while (1)
     {
@@ -237,89 +238,36 @@ int main(void)
         {
             dyn_display((number / 600) * 1000 + number % 600, digit_num);
             digit_num++;
-            delay_10ms();
-            if (LL_GPIO_IsInputPinSet(GPIOA, LL_GPIO_PIN_0)) 
-            {
-                button_pressed = 1;
-                debouncer_clk = 0;
-            } 
-            if (button_pressed)
-            {
-                debouncer_clk++;
-                // delay_10ms();
-            }
-            if (debouncer_clk >= 5)
-            {
-                LL_GPIO_TogglePin(GPIOC, LL_GPIO_PIN_8);
-                time_running = ~time_running;
-                //set _indicator(number);
-                button_pressed = 0;
-                debouncer_clk = 0;
-            }
-        }
-        if(time_running == 1)
-        {
-            ++number;
-         }
-    } */
-
-
-
-int newnum = number;
-    
-while(1)
-{
-    dyn_display(newnum, digit_num);
-    digit_num ++;
-    delay_10ms();
-
-
-    #if defined(TURN_ON_CONTACT_DEBOUNCER)
-
-        /*
-        * if button is pressed then set flag and reset counter
-        */
-        if (LL_GPIO_IsInputPinSet(GPIOA, LL_GPIO_PIN_0)) 
-        {
-            button_pressed = 1;
-            debouncer_clk = 0;
-            newnum = number + 1;
+            delay_10ms();          
+            button_status = Button_Status(); 
+            
+            if(button_status > 0)
+                new_time_running = ~time_running;
+        
+            if(button_status == 0)
+                time_running = new_time_running;       
         }
         
-        /*
-        * if flag is set increase counter
-        */
-        if (button_pressed)
+        if(new_time_running == 1)
         {
-            debouncer_clk++;
-            // delay_10ms();
+            ++number;
         }
-    
-        /*
-        * If counter manages to count up to 5 then button is not bouncing
-        * any longer and we need to get action! (process it)
-        * NOTE: 5 is just experimental value
-        */
-        if (debouncer_clk >= 5)
-        {
-            LL_GPIO_TogglePin(GPIOC, LL_GPIO_PIN_8);
-            number = newnum;
-            //set_indicator(number);
-            button_pressed = 0;
-            debouncer_clk = 0;
-        }
-    
-    #else
-        if (LL_GPIO_IsInputPinSet(GPIOA, LL_GPIO_PIN_0))
-        {
-            LL_GPIO_TogglePin(GPIOC, LL_GPIO_PIN_8);
-            number++;
-            //set_indicator(number);
-        }
-   
-    #endif
-    }
+    } */
 
+   
+    while(1)
+    {
+        dyn_display(newnum, digit_num);
+        digit_num ++;
+        delay_10ms();        
+        button_status = Button_Status(); 
+        
+        if(button_status > 0)
+            newnum = number + 1;
+        
+        if(button_status == 0)
+            number = newnum;       
+    }
 
     return 0;
 }
