@@ -5,44 +5,44 @@
     <configuration>
         <name>Debug</name>
         <outputs>
-            <file>$PROJ_DIR$\main.c</file>
-            <file>$PROJ_DIR$\Debug\Obj\main.__cstat.et</file>
-            <file>$TOOLKIT_DIR$\lib\shb_l.a</file>
             <file>$TOOLKIT_DIR$\inc\c\DLib_Config_Normal.h</file>
+            <file>$TOOLKIT_DIR$\config\linker\ST\stm32f051x8.icf</file>
+            <file>$TOOLKIT_DIR$\lib\shb_l.a</file>
+            <file>$PROJ_DIR$\Debug\Obj\main.__cstat.et</file>
+            <file>$TOOLKIT_DIR$\inc\c\DLib_Product.h</file>
             <file>$TOOLKIT_DIR$\inc\c\stdint.h</file>
             <file>$TOOLKIT_DIR$\lib\m6M_tl.a</file>
-            <file>$TOOLKIT_DIR$\lib\dl6M_tln.a</file>
-            <file>$PROJ_DIR$\Libraries\plib\stm32f0xx_ll_exti.h</file>
-            <file>$PROJ_DIR$\Libraries\plib\stm32f0xx_ll_system.h</file>
-            <file>$PROJ_DIR$\Libraries\core\stm32f051x8.h</file>
-            <file>$TOOLKIT_DIR$\inc\c\ycheck.h</file>
-            <file>$PROJ_DIR$\Debug\List\stm32_course.map</file>
-            <file>$PROJ_DIR$\Debug\Obj\main.o</file>
-            <file>$PROJ_DIR$\Libraries\plib\stm32f0xx_ll_gpio.h</file>
-            <file>$PROJ_DIR$\Debug\Obj\main.pbi</file>
-            <file>$PROJ_DIR$\Libraries\core\system_stm32f0xx.h</file>
-            <file>$PROJ_DIR$\Libraries\plib\stm32f0xx_ll_cortex.h</file>
             <file>$PROJ_DIR$\Libraries\plib\stm32f0xx_ll_bus.h</file>
-            <file>$TOOLKIT_DIR$\inc\c\cmsis_iar.h</file>
-            <file>$PROJ_DIR$\Libraries\core\stm32f0xx.h</file>
-            <file>$TOOLKIT_DIR$\inc\c\DLib_Product.h</file>
-            <file>$PROJ_DIR$\Libraries\plib\stm32f0xx_ll_rcc.h</file>
-            <file>$PROJ_DIR$\Libraries\core\core_cm0.h</file>
+            <file>$PROJ_DIR$\main.c</file>
             <file>$TOOLKIT_DIR$\inc\c\yvals.h</file>
-            <file>$TOOLKIT_DIR$\inc\c\DLib_Defaults.h</file>
-            <file>$TOOLKIT_DIR$\config\linker\ST\stm32f051x8.icf</file>
-            <file>$TOOLKIT_DIR$\lib\rt6M_tl.a</file>
-            <file>$PROJ_DIR$\Libraries\plib\stm32f0xx_ll_utils.h</file>
-            <file>$TOOLKIT_DIR$\inc\c\iccarm_builtin.h</file>
+            <file>$PROJ_DIR$\Libraries\core\stm32f051x8.h</file>
             <file>$PROJ_DIR$\Debug\Exe\stm32_course.out</file>
+            <file>$PROJ_DIR$\Libraries\core\stm32f0xx.h</file>
+            <file>$TOOLKIT_DIR$\inc\c\ycheck.h</file>
+            <file>$TOOLKIT_DIR$\lib\dl6M_tln.a</file>
+            <file>$PROJ_DIR$\Libraries\plib\stm32f0xx_ll_gpio.h</file>
+            <file>$TOOLKIT_DIR$\inc\c\DLib_Defaults.h</file>
+            <file>$PROJ_DIR$\Debug\Obj\main.pbi</file>
+            <file>$PROJ_DIR$\Libraries\core\core_cm0.h</file>
+            <file>$TOOLKIT_DIR$\inc\c\iccarm_builtin.h</file>
+            <file>$PROJ_DIR$\Libraries\core\system_stm32f0xx.h</file>
+            <file>$PROJ_DIR$\Libraries\plib\stm32f0xx_ll_utils.h</file>
+            <file>$PROJ_DIR$\Libraries\plib\stm32f0xx_ll_system.h</file>
+            <file>$PROJ_DIR$\Debug\List\stm32_course.map</file>
+            <file>$TOOLKIT_DIR$\inc\c\cmsis_iar.h</file>
+            <file>$PROJ_DIR$\Libraries\plib\stm32f0xx_ll_rcc.h</file>
+            <file>$PROJ_DIR$\Libraries\plib\stm32f0xx_ll_cortex.h</file>
             <file>$PROJ_DIR$\Debug\Obj\stm32_course.pbd</file>
+            <file>$PROJ_DIR$\Debug\Obj\main.o</file>
+            <file>$PROJ_DIR$\Libraries\plib\stm32f0xx_ll_exti.h</file>
+            <file>$TOOLKIT_DIR$\lib\rt6M_tl.a</file>
         </outputs>
         <file>
             <name>[ROOT_NODE]</name>
             <outputs>
                 <tool>
                     <name>ILINK</name>
-                    <file> 29 11</file>
+                    <file> 11 23</file>
                 </tool>
             </outputs>
         </file>
@@ -50,26 +50,26 @@
             <name>$PROJ_DIR$\main.c</name>
             <outputs>
                 <tool>
-                    <name>__cstat</name>
-                    <file> 1</file>
+                    <name>ICCARM</name>
+                    <file> 28</file>
                 </tool>
                 <tool>
-                    <name>ICCARM</name>
-                    <file> 12</file>
+                    <name>__cstat</name>
+                    <file> 3</file>
                 </tool>
                 <tool>
                     <name>BICOMP</name>
-                    <file> 14</file>
+                    <file> 17</file>
                 </tool>
             </outputs>
             <inputs>
                 <tool>
                     <name>ICCARM</name>
-                    <file> 21 19 9 22 4 10 23 24 3 20 18 28 15 8 17 13 7 27 16</file>
+                    <file> 25 12 10 18 5 13 9 16 0 4 24 19 20 22 7 15 29 21 26</file>
                 </tool>
                 <tool>
                     <name>BICOMP</name>
-                    <file> 20 7 19 17 16 15 10 23 8 13 27 9 22 4 18 3 28 21 24</file>
+                    <file> 4 29 12 7 26 20 13 9 22 15 21 10 18 5 24 0 19 25 16</file>
                 </tool>
             </inputs>
         </file>
@@ -78,13 +78,13 @@
             <outputs>
                 <tool>
                     <name>ILINK</name>
-                    <file> 11</file>
+                    <file> 23</file>
                 </tool>
             </outputs>
             <inputs>
                 <tool>
                     <name>ILINK</name>
-                    <file> 25 12 2 26 5 6</file>
+                    <file> 1 28 2 30 6 14</file>
                 </tool>
             </inputs>
         </file>

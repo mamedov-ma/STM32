@@ -243,6 +243,7 @@ int main(void)
     gpio_config();
     systick_config();
 
+    
     while (1);
     return 0;
 }

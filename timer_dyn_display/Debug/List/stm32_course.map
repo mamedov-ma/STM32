@@ -1,23 +1,23 @@
 ###############################################################################
 #
-# IAR ELF Linker V8.30.1.114/W32 for ARM                  04/Apr/2021  11:33:16
+# IAR ELF Linker V8.30.1.114/W32 for ARM                  06/Apr/2021  20:45:39
 # Copyright 2007-2018 IAR Systems AB.
 #
 #    Output file  =  
 #        C:\Users\User\OneDrive\Рабочий
-#        стол\summer1\stm32\stm-test\STM32\timer\Debug\Exe\stm32_course.out
+#        стол\summer1\stm32\stm-test\STM32\timer_dyn_display\Debug\Exe\stm32_course.out
 #    Map file     =  
 #        C:\Users\User\OneDrive\Рабочий
-#        стол\summer1\stm32\stm-test\STM32\timer\Debug\List\stm32_course.map
+#        стол\summer1\stm32\stm-test\STM32\timer_dyn_display\Debug\List\stm32_course.map
 #    Command line =  
-#        -f C:\Users\User\AppData\Local\Temp\EW8778.tmp
+#        -f C:\Users\User\AppData\Local\Temp\EWF61D.tmp
 #        ("C:\Users\User\OneDrive\Рабочий
-#        стол\summer1\stm32\stm-test\STM32\timer\Debug\Obj\main.o"
+#        стол\summer1\stm32\stm-test\STM32\timer_dyn_display\Debug\Obj\main.o"
 #        --no_out_extension -o "C:\Users\User\OneDrive\Рабочий
-#        стол\summer1\stm32\stm-test\STM32\timer\Debug\Exe\stm32_course.out"
+#        стол\summer1\stm32\stm-test\STM32\timer_dyn_display\Debug\Exe\stm32_course.out"
 #        --redirect _Printf=_PrintfFullNoMb --redirect _Scanf=_ScanfFullNoMb
 #        --map "C:\Users\User\OneDrive\Рабочий
-#        стол\summer1\stm32\stm-test\STM32\timer\Debug\List\stm32_course.map"
+#        стол\summer1\stm32\stm-test\STM32\timer_dyn_display\Debug\List\stm32_course.map"
 #        --config "C:\Program Files (x86)\IAR Systems\Embedded Workbench
 #        8.1\arm\config\linker\ST\stm32f051x8.icf" --semihosting --entry
 #        __iar_program_start --vfe --text_out locale)
@@ -131,7 +131,7 @@ command line/config:
     -------------------------------------------------
     Total:
 
-C:\Users\User\OneDrive\Рабочий стол\summer1\stm32\stm-test\STM32\timer\Debug\Obj: [1]
+C:\Users\User\OneDrive\Рабочий стол\summer1\stm32\stm-test\STM32\timer_dyn_display\Debug\Obj: [1]
     main.o                    1 300       88       32
     -------------------------------------------------
     Total:                    1 300       88       32
@@ -243,7 +243,7 @@ rcc_config               0x800'020f  0x48  Code  Lc  main.o [1]
 systick_config           0x800'047d  0x1c  Code  Lc  main.o [1]
 
 
-[1] = C:\Users\User\OneDrive\Рабочий стол\summer1\stm32\stm-test\STM32\timer\Debug\Obj
+[1] = C:\Users\User\OneDrive\Рабочий стол\summer1\stm32\stm-test\STM32\timer_dyn_display\Debug\Obj
 [2] = dl6M_tln.a
 [3] = rt6M_tl.a
 [4] = shb_l.a
