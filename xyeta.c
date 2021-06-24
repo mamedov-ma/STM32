@@ -10,10 +10,35 @@
 #include "stm32f0xx_ll_cortex.h"
 
 
-
 #define x_max 3
 #define y_max 3
 
+
+static void rcc_config();
+static void gpio_config(void);
+static void timers_config(void);
+static void printf_config(void);
+uint8_t sum_x (uint8_t j);
+uint8_t sum_y (uint8_t i);
+void fill_arr ();
+void find_empty ();
+void draw ();
+void print_krest (enum color_t color);
+void print_krug (enum color_t color);
+void print_grid ();
+void move_cursor_x (uint8_t dir);
+void print_win (char winner);
+void print_no_winner ();
+char check_win ();
+int check_full ();
+void put_curs ();
+int Button_Status();
+
+
+
+/*
+ * Настраиваем тактирование 
+ */
 static void rcc_config()
 {
     LL_FLASH_SetLatency(LL_FLASH_LATENCY_1);
@@ -36,6 +61,10 @@ static void rcc_config()
     SystemCoreClock = 48000000;
 }
 
+
+/*
+ * Настраиваем диоды
+ */
 static void gpio_config(void)
 {
     LL_AHB1_GRP1_EnableClock(LL_AHB1_GRP1_PERIPH_GPIOC);
@@ -44,35 +73,31 @@ static void gpio_config(void)
     return;
 }
 
+
 /*
- * Configure timer to encoder mode
+ * Настраиваем таймер в режиме энкодера
  */
 static void timers_config(void)
 {
     LL_AHB1_GRP1_EnableClock(LL_AHB1_GRP1_PERIPH_GPIOA);
     LL_GPIO_SetPinMode(GPIOA, LL_GPIO_PIN_1, LL_GPIO_MODE_ALTERNATE);
     LL_GPIO_SetPinMode(GPIOA, LL_GPIO_PIN_5, LL_GPIO_MODE_ALTERNATE);
+   
     LL_GPIO_SetAFPin_0_7(GPIOA, LL_GPIO_PIN_1, LL_GPIO_AF_2);
     LL_GPIO_SetAFPin_0_7(GPIOA, LL_GPIO_PIN_5, LL_GPIO_AF_2);
     LL_GPIO_SetPinPull(GPIOA, LL_GPIO_PIN_1, LL_GPIO_PULL_UP);
     LL_GPIO_SetPinPull(GPIOA, LL_GPIO_PIN_5, LL_GPIO_PULL_UP);
-
     LL_APB1_GRP1_EnableClock(LL_APB1_GRP1_PERIPH_TIM2);
-    /* (1) Configure TI1FP1 on TI1 (CC1S = 01)
-         configure TI1FP2 on TI2 (CC2S = 01) */
-    /* (2) Configure TI1FP1 and TI2FP2 non inverted (CC1P = CC2P = 0, reset value) */
-    /* (3) Configure both inputs are active on both rising and falling edges
-        (SMS = 011) */ 
+    
     LL_TIM_IC_SetActiveInput(TIM2, LL_TIM_CHANNEL_CH1, LL_TIM_ACTIVEINPUT_DIRECTTI); // 1
     LL_TIM_IC_SetActiveInput(TIM2, LL_TIM_CHANNEL_CH2, LL_TIM_ACTIVEINPUT_DIRECTTI); // 1
     LL_TIM_IC_SetPolarity(TIM2, LL_TIM_CHANNEL_CH1, LL_TIM_ETR_POLARITY_NONINVERTED);  // 2
     LL_TIM_IC_SetPolarity(TIM2, LL_TIM_CHANNEL_CH1, LL_TIM_ETR_POLARITY_NONINVERTED);  // 2
     LL_TIM_SetEncoderMode(TIM2, LL_TIM_ENCODERMODE_X4_TI12); // 3
-    //LL_TIM_IC_SetFilter(TIM2, LL_TIM_CHANNEL_CH1, LL_TIM_IC_FILTER_FDIV16_N5);
-    //LL_TIM_IC_SetFilter(TIM2, LL_TIM_CHANNEL_CH2, LL_TIM_IC_FILTER_FDIV16_N5);
+    
     LL_TIM_SetAutoReload(TIM2, 0xFFFF);
     LL_TIM_EnableCounter(TIM2);
-    //
+    
     return;
 }
 
@@ -85,8 +110,7 @@ static void printf_config(void)
 
 char arr[y_max][x_max] = {'\0'};
 
-uint8_t x = 0;
-uint8_t y = 0;
+int8_t x, y = 0;
 uint8_t player_turn = 0;
 
 uint8_t sum_x (uint8_t j)
@@ -100,7 +124,47 @@ uint8_t sum_y (uint8_t i)
 }
 
 
+void fill_arr ()
+{
+    for (int i = 0; i < 3; i++)
+        for (int j = 0; j < 3; j++)
+            arr[i][j] = '\0';
+}
 
+
+void find_empty ()
+{
+    for (y = 0; y < 3; y++)
+        for (x = 0; x < 3; x++)
+            if (arr[y][x] == '\0')
+		return;
+}
+
+
+/*
+ * функция рисует поле для игры в каждый момент времени
+ */
+void draw ()
+{
+    oled_clr (clBlack);
+    print_grid ();
+
+    for (y = 0; y < 3; y++)
+        for (x = 0; x < 3; x++)
+        {
+            if (arr[y][x] == 'x')
+                print_krest (clWhite);
+            else if (arr[y][x] == 'o')
+                print_krug (clWhite);
+        }
+
+    oled_update ();
+}
+
+
+/*
+ * Данная функция принимает на вход цвет, и рисует им крест
+ */
 void print_krest (enum color_t color)
 {
     for (uint8_t i = 2; i < 16; i++)
@@ -113,6 +177,10 @@ void print_krest (enum color_t color)
 	    }
 }
 
+
+/*
+ * Данная функция принимает на вход цвет, и рисует им круг 
+ */
 void print_krug (enum color_t color)
 {
     for (uint8_t i = 2; i < 16; i++)
@@ -152,6 +220,10 @@ void print_krug (enum color_t color)
 
 }
 
+
+/*
+ * Данная функция отрисовывает решетку на экране
+ */
 void print_grid ()
 {
     for (uint8_t i = 3; i < 59; i++)
@@ -164,38 +236,10 @@ void print_grid ()
             }
 }
 
-void fill_arr ()
-{
-    for (int i = 0; i < 3; i++)
-        for (int j = 0; j < 3; j++)
-            arr[i][j] = '\0';
-}
 
-void find_empty ()
-{
-    for (y = 0; y < 3; y++)
-        for (x = 0; x < 3; x++)
-            if (arr[y][x] == '\0')
-		return;
-}
-
-void draw ()
-{
-    oled_clr (clBlack);
-    print_grid ();
-
-    for (y = 0; y < 3; y++)
-        for (x = 0; x < 3; x++)
-        {
-            if (arr[y][x] == 'x')
-                print_krest (clWhite);
-            else if (arr[y][x] == 'o')
-                print_krug (clWhite);
-        }
-
-    oled_update ();
-}
-
+/*
+ * Данная функция сдвигает курсор на dir клеток
+ */
 void move_cursor_x (uint8_t dir)
 {
     while (1)
@@ -226,6 +270,10 @@ void move_cursor_x (uint8_t dir)
     }
 }
 
+
+/*
+ * Данная функция выводит на экран поздравления победившему игроку
+ */
 void print_win (char winner)
 {
     oled_clr (clBlack);
@@ -238,6 +286,25 @@ void print_win (char winner)
     oled_update ();
 }
 
+
+/*
+ * Данная функция выводит на экран сообщение о том, что у игроков ничья
+ */
+void print_no_winner ()
+{
+    oled_clr (clBlack);
+    oled_set_cursor (0, 0);
+    xprintf ("         Draw!\n");
+    xprintf ("     If you want to\n");
+    xprintf ("    play again press\n");
+    xprintf ("         Reset.\n");
+    oled_update ();
+}
+
+
+/*
+ * Проверка на то, что крайний ход являлся победным
+ */
 char check_win ()
 {
     uint8_t j = 0;
@@ -279,6 +346,26 @@ char check_win ()
     return '\0';
 }
 
+
+/*
+ * Проверка на ничью
+ */
+int check_full ()
+{
+    for (uint8_t i = 0; i < 3; i++)
+        for (uint8_t j = 0; j < 3; j++)
+            {
+                if (arr[i][j] == '\0')
+                    return 0;
+            }
+   
+    return 1;
+}
+
+
+/*
+ * Отображает курсор
+ */
 void put_curs ()
 {
     for (uint8_t i = 0; i < 18; i++)
@@ -296,7 +383,9 @@ void put_curs ()
 }
 
 
-
+/*
+ * Возвращает 1 - если кнопка нажата, 0 - если нет
+ */
 int button_status, debouncer_clk = 0;
 int Button_Status()
 { 
@@ -313,13 +402,13 @@ int Button_Status()
     
     if (debouncer_clk >= 5)
     {
-        LL_GPIO_TogglePin(GPIOC, LL_GPIO_PIN_8);
         button_status = 0;
         debouncer_clk = 0;
     }    
 
     return button_status;
 }
+
 
 
 
@@ -336,51 +425,46 @@ int main(void)
     int check = 0;
     char check_end = 0;
 
-    x = 0;
-    y = 0;
-    int X,Y = 0;
-    int ch = 0;
-    int old_status,old_counter = 0;
-     old_counter = LL_TIM_GetCounter(TIM2);
+    x = 0;                                         // 
+    y = 0;                                         //
+    int X,Y = 0;                                   //
+    int ch = 0;                                    //
+    int old_status = 0;                            //
+    int new_counter = 0;                           //
+    int old_counter = LL_TIM_GetCounter(TIM2);     //  
+    uint8_t x_save = 0;                            //
+    uint8_t y_save = 0;                            // 
+    int check_no_winner = 0;                       //
     
     while (1) 
     {
 	draw ();
+	
+	x = x_save;
+	y = y_save;
 
 	if (check == 0)
-            find_empty ();
+            find_empty ();          
 
         put_curs ();
-
- /*       // if (LL_TIM_GetCounterMode(TIM2) == LL_TIM_COUNTERMODE_UP) 
-        if (LL_TIM_GetCounter(TIM2) - old_counter >= 100)
+ 
+        new_counter = LL_TIM_GetCounter(TIM2);
+ 
+        if (new_counter - old_counter >= 10)
         {
-            LL_GPIO_SetOutputPin(GPIOC, LL_GPIO_PIN_8);
-            LL_GPIO_ResetOutputPin(GPIOC, LL_GPIO_PIN_9);
-	    //move_cursor_x (1);
-	    ch += 1;
+	    move_cursor_x (1);
 	    check = 1;
 	    old_counter = LL_TIM_GetCounter(TIM2);
         }
-	//else if (LL_TIM_GetCounterMode(TIM2) == LL_TIM_COUNTERMODE_DOWN) 
-	else if (LL_TIM_GetCounter(TIM2) - old_counter <= -100) 
+	else if (new_counter - old_counter <= -10) 
 	{
-            LL_GPIO_SetOutputPin(GPIOC, LL_GPIO_PIN_9);
-            LL_GPIO_ResetOutputPin(GPIOC, LL_GPIO_PIN_8);
-	    //move_cursor_x (-1);
-	    ch -= 1;
+	    move_cursor_x (-1);
 	    check = 1;
 	    old_counter = LL_TIM_GetCounter(TIM2);
         }	
-   */     
-        /*oled_clr (clBlack);
-        oled_set_cursor (0, 0);
-        xprintf ("Ch = %d \n %d", ch, LL_TIM_GetCounter(TIM2));
-        oled_update (); */
+       
 
-	//if button pressed, then put 'x', or 'o' to the xurrent place, and change turn
-	
-	
+	//if button pressed, then put 'x', or 'o' to the xurrent place, and change turn	
 	
 	if(Button_Status() == 0)
 	{
@@ -389,32 +473,49 @@ int main(void)
 	}
 	
 	
-	if(old_status == 0 && Button_Status() == 1)
-	{    
-	    if(player_turn == 0)
-	    {
-	    arr[Y][X]   = 'o';
-	    player_turn = 1;
-	    }
-	    else if(player_turn == 1) 
-	    {
-	    arr[Y][X]   = 'x';
-	    player_turn = 0;
-	    }   
-	}
+	if(old_status == 0 && Button_Status() == 1)  //
+	{                                            // 
+	    if(player_turn == 0)                     //
+	    {                                        //
+	    arr[Y][X]   = 'o';                       //
+	    player_turn = 1;                         //
+	    }                                        //
+	    else if(player_turn == 1)                //  Обработка хода
+	    {                                        // 
+	    arr[Y][X]   = 'x';                       //
+	    player_turn = 0;                         //
+	    }                                        //
+	                                             //
+	    check = 0;                               //
+	}                                            
         
         old_status = Button_Status();
+        
+        x_save = x;
+        y_save = y;
 	
 	check_end = check_win ();
 
-	if (check_end != '\0')
-	    break;
-    }
+	if (check_end != '\0')                       //
+	                                             //  
+	    break;                                   //
+	                                             //  Проверка на то, был ли ход финальным
+        check_no_winner = check_full ();             //
+        if (check_no_winner != 0)                    //
+            break;                                   //
+    }                                                
 
+    
+    //Окно окончания игры
     while (1)
     {
-        //print_win (check_end);
-        draw();
+        if (check_end != '\0')
+            print_win (check_end);
+        if (check_no_winner != 0)
+            print_no_winner ();
+  
+        LL_GPIO_TogglePin(GPIOC, LL_GPIO_PIN_8);
+        LL_GPIO_TogglePin(GPIOC, LL_GPIO_PIN_9);
     }
 
     return 0;
