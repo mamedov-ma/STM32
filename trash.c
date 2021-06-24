@@ -1,7 +1,3 @@
-/*
- * This example demonstrates using timers with encoder
- */
-
 #include "stm32f0xx_ll_rcc.h"
 #include "stm32f0xx_ll_system.h"
 #include "stm32f0xx_ll_bus.h"
@@ -14,7 +10,10 @@
 #include "stm32f0xx_ll_cortex.h"
 
 
-
+//accuracy of encoder
+const uint8_t COUNT_ENCODER = 95;
+//turn on this angle
+const uint8_t DEGREE = 360;
 
 
 /**
@@ -57,10 +56,7 @@ static void rcc_config()
      * through SystemCoreClockUpdate function) */
     SystemCoreClock = 48000000;
 }
-
-/*
- * Clock on GPIOC and set two led pins
- */
+/*---------------------------------------------*/
 static void gpio_config(void)
 {
     LL_AHB1_GRP1_EnableClock(LL_AHB1_GRP1_PERIPH_GPIOC);
@@ -68,6 +64,10 @@ static void gpio_config(void)
     LL_GPIO_SetPinMode(GPIOC, LL_GPIO_PIN_9, LL_GPIO_MODE_OUTPUT);
     return;
 }
+/*---------------------------------------------*/
+/*
+ * This function is for displaying number in decimal (0-9999)
+ */
 
 /*
  * Configure timer to encoder mode
@@ -91,119 +91,59 @@ static void timers_config(void)
     LL_TIM_IC_SetActiveInput(TIM2, LL_TIM_CHANNEL_CH1, LL_TIM_ACTIVEINPUT_DIRECTTI); // 1
     LL_TIM_IC_SetActiveInput(TIM2, LL_TIM_CHANNEL_CH2, LL_TIM_ACTIVEINPUT_DIRECTTI); // 1
     LL_TIM_IC_SetPolarity(TIM2, LL_TIM_CHANNEL_CH1, LL_TIM_ETR_POLARITY_NONINVERTED);  // 2
-    LL_TIM_IC_SetPolarity(TIM2, LL_TIM_CHANNEL_CH1, LL_TIM_ETR_POLARITY_NONINVERTED);  // 2
+    LL_TIM_IC_SetPolarity(TIM2, LL_TIM_CHANNEL_CH2, LL_TIM_ETR_POLARITY_NONINVERTED);  // 2
     LL_TIM_SetEncoderMode(TIM2, LL_TIM_ENCODERMODE_X4_TI12); // 3
     //LL_TIM_IC_SetFilter(TIM2, LL_TIM_CHANNEL_CH1, LL_TIM_IC_FILTER_FDIV16_N5);
     //LL_TIM_IC_SetFilter(TIM2, LL_TIM_CHANNEL_CH2, LL_TIM_IC_FILTER_FDIV16_N5);
-    LL_TIM_SetAutoReload(TIM2, 0xFFFF);
+    LL_TIM_SetAutoReload(TIM2, COUNT_ENCODER); //count contacts on encoder (for 1 rotation of encoder) 
     LL_TIM_EnableCounter(TIM2);
-    //
     return;
 }
+
 
 /*---------------------------------------------*/
 /*
  * Configure system timer to time 1 ms
  */
-/*static void systick_config(void)
+static void systick_config(void)
 {
     LL_InitTick(48000000, 1000);
     LL_SYSTICK_EnableIT();
     NVIC_SetPriority(SysTick_IRQn, 1);
     return;
-}*/
+}
 /*
  * Handler for system timer
  */
-/*void SysTick_Handler(void)
+void SysTick_Handler(void)
 {
-    
-    if (LL_TIM_GetCounterMode(TIM2) == LL_TIM_COUNTERMODE_UP) 
-    {
-            LL_GPIO_SetOutputPin(GPIOC, LL_GPIO_PIN_8);
-            LL_GPIO_ResetOutputPin(GPIOC, LL_GPIO_PIN_9);
-    }
-    if (LL_TIM_GetCounterMode(TIM2) == LL_TIM_COUNTERMODE_DOWN) 
-    {
-            LL_GPIO_SetOutputPin(GPIOC, LL_GPIO_PIN_9);
-            LL_GPIO_ResetOutputPin(GPIOC, LL_GPIO_PIN_8);
-    }
-        
-    oled_clr(clBlack);
+    //display encoder rotation in degree (0-360)
     oled_set_cursor(0,0);
-    xprintf("%d", (uint32_t)(LL_TIM_GetCounter(TIM2) / 95 * 256));
-    oled_update(); 
+    xprintf("degree = %d", (uint32_t)(LL_TIM_GetCounter(TIM2) / (double)COUNT_ENCODER * DEGREE)); 
+    oled_update ();
     return;
-}*/
-
-
-
-
-
-
-
-
-
-/*
- * Just set of commands to waste CPU power for a second
- * (basically it is a simple cycle with a predefined number
- * of loops)
- */
-static void delay(void)
-{
-    for (int i = 0; i < 10000; i++);
 }
+/*---------------------------------------------*/
 
-/*
- * Turn on Green led when turn encoder to the right
- * Turn on Blue led when turn encoder to the left
- */
- 
- 
- static void printf_config(void)
+
+static void printf_config(void)
 {
     xdev_out(oled_putc);
-    return;X
+    return;
 }
+
 
 
 int main(void)
 {
     rcc_config();
     gpio_config();
+    timers_config();
     oled_config();
     printf_config();
-    timers_config();
-    //systick_config();
-    
+    systick_config();
+   
 
-
-    int i = 0;
-    
-    while (1) 
-    {
-        /*if (LL_TIM_GetCounterMode(TIM2) == LL_TIM_COUNTERMODE_UP) {
-            LL_GPIO_SetOutputPin(GPIOC, LL_GPIO_PIN_8);
-            LL_GPIO_ResetOutputPin(GPIOC, LL_GPIO_PIN_9);
-        }
-        if (LL_TIM_GetCounterMode(TIM2) == LL_TIM_COUNTERMODE_DOWN) {
-            LL_GPIO_SetOutputPin(GPIOC, LL_GPIO_PIN_9);
-            LL_GPIO_ResetOutputPin(GPIOC, LL_GPIO_PIN_8);
-        }
-        */
-        
-        oled_clr(clBlack);
-        oled_set_cursor(0,0);
-        xprintf("%d", LL_TIM_GetCounterMode(TIM2));
-        oled_update();
-        
-        
-        for(int i = 0; i < 10; i++)
-            delay();
-            
-        i++;
-        if (i == 10)
-            break; 
-    }   
+    while (1);
     return 0;
 }
